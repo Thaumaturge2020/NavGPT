@@ -2,7 +2,9 @@
 
 from langchain.prompts.prompt import PromptTemplate
 
-PLANNER_PROMPT = """Given the long instruction: {instruction}
+PLANNER_PROMPT = """make answer by using the English.
+
+Given the long instruction: {instruction}
 
 Divide the long instruction into action steps with detailed descriptions in the following format:
 Action plan:
@@ -12,7 +14,9 @@ Action plan:
 
 Action plan:"""
 
-ACTION_PROMPT = """You are an agent following an action plan to navigation in indoor environment.
+ACTION_PROMPT = """make answer by using the English.
+
+You are an agent following an action plan to navigation in indoor environment.
 
 Action plan: {action_plan}
 
@@ -41,7 +45,9 @@ Observation: {observation}
 Navigable viewpoints: {navigable_viewpoints}
 Thought:"""
 
-HISTORY_PROMPT = """You are an agent navigating in indoor environment.
+HISTORY_PROMPT = """make answer by using the English.
+
+You are an agent navigating in indoor environment.
 
 You have reached a new viewpoint after taking previous action. You will be given the navigation history, the current observation of the environment, and the previous action you taken.
 
@@ -57,7 +63,9 @@ Update history with the new observation:"""
 MAKE_ACTION_TOOL_NAME = "action_maker"
 MAKE_ACTION_TOOL_DESCRIPTION = f'Can be used to move to next adjacent viewpoint.\nThe input to this tool should be a viewpoint ID string of the next viewpoint you wish to visit. For example:\nAction: action_maker\nAction Input: "4a153b13a3f6424784cb8e5dabbb3a2c".'
 
-BACK_TRACE_PROMPT = """You are an agent following an action plan to navigation in indoor environment.
+BACK_TRACE_PROMPT = """make answer by using the English.
+
+You are an agent following an action plan to navigation in indoor environment.
 
 You are currently at an intermediate step of the trajectory but seems going off the track. You will be given the action plan describing the whole trajectory, the history of previous steps you have taken, the observations of the viewpoints along the trajectory.
 
@@ -87,7 +95,9 @@ BACK_TRACE_TOOL_NAME = "back_tracer"
 BACK_TRACE_TOOL_DESCRIPTION = f"Can be used to move to any previous viewpoint on the trajectory even if the viewpoint is not adjacent.\nCan be call like {BACK_TRACE_TOOL_NAME}('viewpointID'), where 'viewpointID' is the ID of any previous viewpoint.\nThe input to this tool should be a string of viewpoint ID ONLY."
 
 
-VLN_ORCHESTRATOR_TOOL_PROMPT = """You are an agent that follows an instruction to navigate in indoor environment. You are required to make sequential decisions according to the observation of the environment to follow the given instruction.
+VLN_ORCHESTRATOR_TOOL_PROMPT = """make answer by using the English.
+
+You are an agent that follows an instruction to navigate in indoor environment. You are required to make sequential decisions according to the observation of the environment to follow the given instruction.
 At the beginning of the navigation, you will be given the instruction describing the whole trajectory.
 During navigation, you will receive the history of previous steps you have taken, the current observation of the environment at each step.
 
@@ -125,7 +135,9 @@ Action Input: ""
 Observation: {observation}
 Thought:{agent_scratchpad}"""
 
-VLN_ORCHESTRATOR_ABS_PROMPT = """You are an agent that follows an instruction to navigate in indoor environment. You are required to make sequential decisions according to the observation of the environment to follow the given instruction.
+VLN_ORCHESTRATOR_ABS_PROMPT = """make answer by using the English.
+
+You are an agent that follows an instruction to navigate in indoor environment. You are required to make sequential decisions according to the observation of the environment to follow the given instruction.
 At the beginning of the navigation, you will be given the instruction describing the whole trajectory.
 During navigation, you will receive the history of previous steps you have taken, your current orientation, the current observation of the environment at each step, and the navigable viewpoints' orientations from current viewpoint.
 All orientation are normalized in world cooridinate in degrees, you should always consider the relative angle between the observation and navigable viewpoints. i.e. relative angle 0 and 360 are the front, 90 and -270 are the right, 180 and -180 are the back, 270 and -90 are the left.
@@ -164,7 +176,9 @@ Instruction: {action_plan}
 Initial Observation: {init_observation}
 Thought: I should start navigation according to the instruction, {agent_scratchpad}"""
 
-VLN_ORCHESTRATOR_PROMPT = """You are an agent that follows an instruction to navigate in indoor environment. You are required to make sequential decisions according to the observation of the environment to follow the given instruction.
+VLN_ORCHESTRATOR_PROMPT = """make answer by using the English.
+
+You are an agent that follows an instruction to navigate in indoor environment. You are required to make sequential decisions according to the observation of the environment to follow the given instruction.
 At the beginning of the navigation, you will be given the instruction describing the whole trajectory.
 During navigation, you will receive the history of previous steps you have taken, the current observation of the environment, and the navigable viewpoints' orientations from current viewpoint.
 All orientation are in degrees from -180 to 180, i.e. angle 0 is the front, right 90 is 90 degree at the right, right 180 and left 180 are the back, left 90 is 90 degree at the left.
@@ -203,7 +217,9 @@ Instruction: {action_plan}
 Initial Observation: {init_observation}
 Thought: I should start navigation according to the instruction, {agent_scratchpad}"""
 
-VLN_GPT4_PROMPT = """You are an intelligent embodied agent that follows an instruction to navigate in an indoor environment. Your task is to move among the static viewpoints (positions) of a pre-defined graph of the environment, and try to reach the target viewpoint as described by the given instruction with the least steps. 
+VLN_GPT4_PROMPT = """make answer by using the English.
+
+You are an intelligent embodied agent that follows an instruction to navigate in an indoor environment. Your task is to move among the static viewpoints (positions) of a pre-defined graph of the environment, and try to reach the target viewpoint as described by the given instruction with the least steps. 
 
 At the beginning of the navigation, you will be given an instruction of a trajectory which describes all observations and the action you should take at each step.
 During navigation, at each step, you will be at a specific viewpoint and receive the history of previous steps you have taken (containing your "Thought", "Action", "Action Input" and "Observation" after the "Begin!" sign) and the observation of current viewpoint (including scene descriptions, objects, and navigable directions/distances within 3 meters).
@@ -244,7 +260,9 @@ Instruction: {action_plan}
 Initial Observation: {init_observation}
 Thought: I should start navigation according to the instruction, {agent_scratchpad}"""
 
-VLN_GPT35_PROMPT = """As an intelligent embodied agent, you will navigate an indoor environment to reach a target viewpoint based on a given instruction, performing the Vision and Language Navigation (VLN) task. You'll move among static positions within a pre-defined graph, aiming for minimal steps.
+VLN_GPT35_PROMPT = """make answer by using the English.
+
+As an intelligent embodied agent, you will navigate an indoor environment to reach a target viewpoint based on a given instruction, performing the Vision and Language Navigation (VLN) task. You'll move among static positions within a pre-defined graph, aiming for minimal steps.
 
 You will receive a trajectory instruction at the start and will have access to step history (your Thought, Action, Action Input and Obeservation after the Begin! sign) and current viewpoint observation (including scene descriptions, objects, and navigable directions/distances within 3 meters) during navigation. Orientations range from -180 to 180 degrees, with 0 being forward, right 90 rightward, right/left 180 backward, and left 90 leftward.
 

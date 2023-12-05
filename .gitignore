@@ -9,5 +9,7 @@ __pycache__/
 *$py.class
 *.swp
 
+*.pth
+
 datasets/*
 !datasets/.gitkeep

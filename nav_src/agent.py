@@ -2,6 +2,7 @@
 import json
 import yaml
 import re
+import os
 import warnings
 import numpy as np
 from typing import Any, Callable, List, NamedTuple, Optional, Sequence, Tuple, Dict, Union
@@ -174,6 +175,67 @@ class NavAgent(BaseAgent):
                 max_gen_len = 500,
                 max_batch_size = 1,
             )
+        elif config.llm_model_name == 'llama-2-7b':
+            from LLMs.Langchain_llama import Custom_Llama
+            ckpt_dir = "LLMs/llama/llama-2-7b"
+            tokenizer_path = "LLMs/llama/tokenizer.model"
+            self.llm = Custom_Llama.from_model_id(
+                temperature=config.temperature,
+                ckpt_dir = ckpt_dir,
+                tokenizer_path = tokenizer_path,
+                max_seq_len = 8000,
+                max_gen_len = 500,
+                max_batch_size = 1,
+            )
+        elif config.llm_model_name == 'llama-2-7b-hf-8bit':
+            from LLMs.Langchain_llama import Custom_Llama
+            ckpt_dir = "LLMs/llama/llama-2-7b-hf-8bit"
+            tokenizer_path = "LLMs/llama/llama-2-7b-hf-8bit/tokenizer.model"
+            self.llm = Custom_Llama.from_model_id(
+                temperature=config.temperature,
+                ckpt_dir = ckpt_dir,
+                tokenizer_path = tokenizer_path,
+                max_seq_len = 8000,
+                max_gen_len = 500,
+                max_batch_size = 1,
+            )
+        elif config.llm_model_name == 'llama-2-7b-8bit':
+            from LLMs.Langchain_llama import Custom_Llama
+            ckpt_dir = "LLMs/llama/llama-2-7b-8bit"
+            tokenizer_path = "LLMs/llama/tokenizer.model"
+            self.llm = Custom_Llama.from_model_id(
+                temperature=config.temperature,
+                ckpt_dir = ckpt_dir,
+                tokenizer_path = tokenizer_path,
+                max_seq_len = 8000,
+                max_gen_len = 500,
+                max_batch_size = 1,
+            )
+        elif config.llm_model_name == 'llama-2-7b-4bit':
+            from LLMs.Langchain_llama import Custom_Llama
+            ckpt_dir = "LLMs/llama/llama-2-7b-4bit"
+            tokenizer_path = "LLMs/llama/tokenizer.model"
+            self.llm = Custom_Llama.from_model_id(
+                temperature=config.temperature,
+                ckpt_dir = ckpt_dir,
+                tokenizer_path = tokenizer_path,
+                max_seq_len = 8000,
+                max_gen_len = 500,
+                max_batch_size = 1,
+            )
+        elif config.llm_model_name == 'llama-CGPU':
+            from LLMs.Langchain_llama_cgpu import llama_CGPU
+            self.llm = llama_CGPU()
+        elif config.llm_model_name == 'baidu-wenxin':
+            from LLMs.Langchain_baidu import Wenxin_LLM
+            wenxin_api_key = os.environ["wenxin_api_key"]
+            wenxin_secret_key = os.environ["wenxin_secret_key"]
+            self.llm = Wenxin_LLM(api_key=wenxin_api_key, secret_key=wenxin_secret_key)
+        elif config.llm_model_name == 'zhipuai':
+            from LLMs.Langchain_th import TsingHua_LLM
+            ts_api_key = os.environ["tsinghua_api_key"]
+            ts_model_name = os.environ["tsinghua_llm_name"]
+            self.llm = TsingHua_LLM(api_key=ts_api_key, model=ts_model_name)
         # elif config.llm_model_name == 'Vicuna-v1.5-13b':
         #     from LLMs.Langchain_Vicuna import Custom_Vicuna
         #     self.llm = Custom_Vicuna.from_config(
@@ -297,6 +359,7 @@ class NavAgent(BaseAgent):
             left_right2 = angle_to_left_right(rel_angle2)
             
             # Create the formatted string
+            print(idx,len(observation_list))
             formatted_string = f"{direction}, range ({left_right1} to {left_right2}): \n'{observation_list[idx]}'"
 
             # Add the objects to the formatted string

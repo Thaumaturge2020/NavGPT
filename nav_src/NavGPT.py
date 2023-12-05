@@ -2,6 +2,21 @@ import os
 import json
 import time
 
+os.environ["OPENAI_API_KEY"] = "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"
+os.environ["RANK"] = '0'
+os.environ["WORLD_SIZE"] = '1'
+os.environ["MASTER_ADDR"] = '127.0.0.1'
+os.environ["MASTER_PORT"] = '15230'
+os.environ["LOCAL_RANK"] = '0'
+os.environ["zhipuai_api_key"] = "5b84a12255c7eccc832ea31895efea87.60mnRux6UaqsWMw3"
+
+os.environ["wenxin_api_key"] = "6tp1qNrQiu0QN3mj4do7I1c7"
+os.environ["wenxin_secret_key"] = "ipKFrGsxhCQj7XZ4lFCe5WFjrNFt7Upo"
+
+os.environ["tsinghua_api_key"] = "5b84a12255c7eccc832ea31895efea87.60mnRux6UaqsWMw3"
+os.environ["tsinghua_llm_name"] = "chatglm_pro"
+
+
 from data_utils import construct_instrs
 from utils.logger import write_to_record_file
 
@@ -9,6 +24,7 @@ from utils.data import ImageObservationsDB
 from parser import parse_args
 from env import R2RNavBatch
 from agent import NavAgent
+
 
 def build_dataset(args):
 
